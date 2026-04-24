@@ -22,13 +22,14 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         "**/*Test*.*", "**/*Hilt*.*", "**/*Module*.*", "**/*_Factory*.*"
     )
 
-    val kotlinDebugTree = fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+    // Using project.layout explicitly to avoid ambiguity in some Gradle versions
+    val kotlinDebugTree = fileTree(project.layout.buildDirectory.dir("tmp/kotlin-classes/debug")) {
         exclude(fileFilter)
     }
 
     classDirectories.setFrom(files(kotlinDebugTree))
     sourceDirectories.setFrom(files("app/src/main/java"))
-    executionData.setFrom(fileTree("${project.buildDir}/jacoco") {
+    executionData.setFrom(fileTree(project.layout.buildDirectory.dir("jacoco")) {
         include("testDebugUnitTest.exec")
     })
 }

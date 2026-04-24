@@ -53,9 +53,10 @@ class DefaultConverterEngine @Inject constructor() : ConverterEngine {
         return when (to) {
             "Meters"     -> meters
             "Feet"       -> meters * 3.28084
+            "Yards"      -> meters * 1.09361
             "Kilometers" -> meters / 1000.0
             "Miles"      -> meters / 1609.344
-            else         -> v
+            else         -> meters
         }
     }
 
@@ -65,6 +66,7 @@ class DefaultConverterEngine @Inject constructor() : ConverterEngine {
             "Kilograms" -> v
             "Pounds"    -> v / 2.20462
             "Grams"     -> v / 1000.0
+            "Ounces"    -> v / 35.274
             else        -> v
         }
         // Convert from kilograms to target
@@ -72,7 +74,8 @@ class DefaultConverterEngine @Inject constructor() : ConverterEngine {
             "Kilograms" -> kg
             "Pounds"    -> kg * 2.20462
             "Grams"     -> kg * 1000.0
-            else        -> v
+            "Ounces"    -> kg * 35.274
+            else        -> kg
         }
     }
 

@@ -19,6 +19,16 @@ class ConverterViewModel @Inject constructor(
     var inputValue: String by mutableStateOf("")
     var result: String by mutableStateOf("")
 
+    fun updateCategory(newCategory: String) {
+        category = newCategory
+        val units = com.example.unitconverter.model.UnitCategory.getByName(newCategory)?.units ?: emptyList()
+        if (units.isNotEmpty()) {
+            inputUnit = units.first()
+            outputUnit = if (units.size > 1) units[1] else units.first()
+        }
+        convert()
+    }
+
     fun convert() {
         result = engine.convert(category, inputUnit, outputUnit, inputValue)
     }
